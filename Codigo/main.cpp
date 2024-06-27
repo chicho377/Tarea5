@@ -28,82 +28,10 @@ double acumuladoNetoOperarios = 0, acumuladoNetoTecnicos = 0, acumuladoNetoProfe
 
 // funciones
 
-// funcion mostrar menu
-void mostrarMenu() {
-    cout << "Menu Principal:\n";
-    cout << "1. Agregar empleado\n";
-    cout << "2. Consultar empleado\n";
-    cout << "3. Modificar empleado\n";
-    cout << "4. Borrar empleado\n";
-    cout << "5. Mostrar estadisticas finales\n";
-    cout << "6. Salir\n";
-    cout << "Ingrese una opcion: ";
-}
-
-// funcion agregar empleado
-void agregarEmpleado(){
-	
-	// verificacion de numero maximo de empleados
-	if(numEmpleado >= MAX_EMPLEADOS){
-		cout << "Se ha alcanzado el numero maximo de empleados.\n";
-		return;
-	}
-	
-	// solicitar los datos
-	cout << "Ingrese la cedula del empleado: ";
-    cin >> cedulas[numEmpleados];
-
-    cout << "Ingrese el nombre del empleado: ";
-    cin.ignore(); // consumir el salto de linea pendiente 
-    getline(cin, nombres[numEmpleados]);
-
-    cout << "Ingrese el tipo de empleado (1-Operario, 2-Tecnico, 3-Profesional): ";
-    cin >> tipos[numEmpleados];
-
-    cout << "Ingrese el salario por hora: ";
-    cin >> salariosPorHora[numEmpleados];
-
-    cout << "Ingrese la cantidad de horas trabajadas: ";
-    cin >> horasTrabajadas[numEmpleados];
-
-    calcularSalarios(numEmpleados);
-    
-    consultarEmpleado();
-
-    numEmpleados++;
-}
-
-// funcion consultar empleado
-void consultarEmpleado() {
-    string cedula;
-    cout << "Ingrese la cedula del empleado a consultar: ";
-    cin >> cedula;
-    bool encontrado = false;
-    for (int i = 0; i < numEmpleados; i++) {
-        if (cedulas[i] == cedula) {
-            cout << "\nDatos del empleado:\n";
-            cout << "--------------------------------------------------\n";
-            cout << "Cedula: " << cedulas[i] << "\n";
-            cout << "Nombre: " << nombres[i] << "\n";
-            cout << "Tipo Empleado: " << tiposEmpleados[tipos[i]] << "\n";
-            cout << "Salario por Hora: " << salariosPorHora[i] << "\n";
-            cout << "Cantidad de Horas: " << horasTrabajadas[i] << "\n";
-            cout << "--------------------------------------------------\n";
-            cout << "Salario Ordinario: " << salariosOrdinarios[i] << "\n";
-            cout << "Aumento: " << aumentos[i] << "\n";
-            cout << "Salario Bruto: " << salariosBrutos[i] << "\n";
-            cout << "Deduccion CCSS: " << deduccionesCCSS[i] << "\n";
-            cout << "Salario Neto: " << salariosNetos[i] << "\n";
-            cout << "--------------------------------------------------\n";
-            encontrado = true;
-            break;
-        }
-    }
-    if (!encontrado) {
-        cout << "Empleado no encontrado.\n";
-    }
-}
-
+void mostrarMenu();
+void agregarEmpleado();
+void consultarEmpleado();
+void calcularSalarios(int index);
 
 
 int main(int argc, char** argv) {
@@ -130,7 +58,119 @@ int main(int argc, char** argv) {
 		system("CLS");
 	}while(opcion != 6);
 	
-	
-
 	return 0;
+}
+
+// funcion mostrar menu
+void mostrarMenu() {
+    cout << "Menu Principal:\n";
+    cout << "1. Agregar empleado\n";
+    cout << "2. Consultar empleado\n";
+    cout << "3. Modificar empleado\n";
+    cout << "4. Borrar empleado\n";
+    cout << "5. Mostrar estadisticas finales\n";
+    cout << "6. Salir\n";
+    cout << "Ingrese una opcion: ";
+}
+
+// funcion agregar empleado
+void agregarEmpleado(){
+	
+	// verificacion de numero maximo de empleados
+	if(numEmpleados >= MAX_EMPLEADOS){
+		cout << "Se ha alcanzado el numero maximo de empleados.\n";
+		return;
+	}
+	
+	// solicitar los datos
+	cout << "Ingrese la cedula del empleado: ";
+    cin >> cedulas[numEmpleados];
+
+    cout << "Ingrese el nombre del empleado: ";
+    cin.ignore(); // consumir el salto de linea pendiente 
+    getline(cin, nombres[numEmpleados]);
+
+    cout << "Ingrese el tipo de empleado (1-Operario, 2-Tecnico, 3-Profesional): ";
+    cin >> tipos[numEmpleados];
+
+    cout << "Ingrese el salario por hora: ";
+    cin >> salariosPorHora[numEmpleados];
+
+    cout << "Ingrese la cantidad de horas trabajadas: ";
+    cin >> horasTrabajadas[numEmpleados];
+
+    calcularSalarios(numEmpleados);
+    
+    
+
+    numEmpleados++;
+}
+
+// funcion consultar empleado
+void consultarEmpleado() {
+    string cedula;
+    cout << "Ingrese la cedula del empleado a consultar: ";
+    cin >> cedula;
+    bool encontrado = false;
+    
+    // iterar en el array de empleados
+    for (int i = 0; i < numEmpleados; i++) {
+    	// verificar que la cedula coincida para imprimir los datos solicitados
+        if (cedulas[i] == cedula) {
+            cout << "\nDatos del empleado:\n";
+            cout << "--------------------------------------------------\n";
+            cout << "Cedula: " << cedulas[i] << "\n";
+            cout << "Nombre: " << nombres[i] << "\n";
+            cout << "Tipo Empleado: " << tiposEmpleados[tipos[i]] << "\n";
+            cout << "Salario por Hora: " << salariosPorHora[i] << "\n";
+            cout << "Cantidad de Horas: " << horasTrabajadas[i] << "\n";
+            cout << "--------------------------------------------------\n";
+            cout << "Salario Ordinario: " << salariosOrdinarios[i] << "\n";
+            cout << "Aumento: " << aumentos[i] << "\n";
+            cout << "Salario Bruto: " << salariosBrutos[i] << "\n";
+            cout << "Deduccion CCSS: " << deduccionesCCSS[i] << "\n";
+            cout << "Salario Neto: " << salariosNetos[i] << "\n";
+            cout << "--------------------------------------------------\n";
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Empleado no encontrado.\n";
+    }
+}
+
+// funcion calcular salario
+void calcularSalarios(int index) {
+    salariosOrdinarios[index] = salariosPorHora[index] * horasTrabajadas[index];
+
+    switch (tipos[index]) {
+        case 1: // operario
+            aumentos[index] = salariosOrdinarios[index] * 0.15;
+            salariosBrutos[index] = salariosOrdinarios[index] + aumentos[index];
+            deduccionesCCSS[index] = salariosBrutos[index] * 0.0917;
+            salariosNetos[index] = salariosBrutos[index] - deduccionesCCSS[index];
+            acumuladoNetoOperarios += salariosNetos[index];
+            cantOperarios++;
+            break;
+        case 2: // tecnico
+            aumentos[index] = salariosOrdinarios[index] * 0.10;
+            salariosBrutos[index] = salariosOrdinarios[index] + aumentos[index];
+            deduccionesCCSS[index] = salariosBrutos[index] * 0.0917;
+            salariosNetos[index] = salariosBrutos[index] - deduccionesCCSS[index];
+            acumuladoNetoTecnicos += salariosNetos[index];
+            cantTecnicos++;
+            break;
+        case 3: // profesional
+            aumentos[index] = salariosOrdinarios[index] * 0.05;
+            salariosBrutos[index] = salariosOrdinarios[index] + aumentos[index];
+            deduccionesCCSS[index] = salariosBrutos[index] * 0.0917;
+            salariosNetos[index] = salariosBrutos[index] - deduccionesCCSS[index];
+            acumuladoNetoProfesionales += salariosNetos[index];
+            cantProfesionales++;
+            break;
+        default:
+            cout << "Tipo de empleado no valido.\n";
+            return;
+    }
 }
