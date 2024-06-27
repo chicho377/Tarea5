@@ -31,6 +31,9 @@ double acumuladoNetoOperarios = 0, acumuladoNetoTecnicos = 0, acumuladoNetoProfe
 void mostrarMenu();
 void agregarEmpleado();
 void consultarEmpleado();
+void modificarEmpleado();
+void borrarEmpleado();
+void mostrarEstadisticas();
 void calcularSalarios(int index);
 
 
@@ -42,23 +45,38 @@ int main(int argc, char** argv) {
 		mostrarMenu();
 		cin >> opcion;
 		
+		system("CLS"); // limpiar pantalla
+		
 		// switch para poder usar el menu
 		switch(opcion){
-			case 1:
-				agregarEmpleado();
-				break;
-			case 2:
-				consultarEmpleado();
-				break;
-			case 3:
-				modificarEmpleado();
-				break;
+			 case 1:
+                agregarEmpleado();
+                break;
+            case 2:
+                consultarEmpleado();
+                break;
+            case 3:
+                modificarEmpleado();
+                break;
+			case 4:
+                borrarEmpleado();
+                break;
+            case 5:
+                mostrarEstadisticas();
+                break;
+            case 6:
+                cout << "Saliendo del programa...\n";
+                break;
 			default:
 				cout << "Opcion no valida. Intente de nuevo.\n";
 				break;
 		}
 		
-		system("CLS");
+		if (opcion != 6) {
+            cout << "Presione cualquier tecla para continuar...";
+            getch(); // pausa antes de limpiar la pantalla y mostrar el menu nuevamente
+        }
+		
 	}while(opcion != 6);
 	
 	return 0;
@@ -223,6 +241,40 @@ void borrarEmpleado() {
     }
 }
 
+// funcion mostrar estadisticas
+void mostrarEstadisticas() {
+    cout << "\nEstadisticas finales:\n";
+    cout << "--------------------------------------------------\n";
+    cout << "Cantidad de Empleados Tipo Operarios: " << cantOperarios << "\n";
+    if (cantOperarios > 0) {
+        cout << "Acumulado Salario Neto para Operarios: " << acumuladoNetoOperarios << "\n";
+        cout << "Promedio Salario Neto para Operarios: " << acumuladoNetoOperarios / cantOperarios << "\n";
+    } else {
+        cout << "Acumulado Salario Neto para Operarios: N/A\n";
+        cout << "Promedio Salario Neto para Operarios: N/A\n";
+    }
+
+    cout << "--------------------------------------------------\n";
+    cout << "Cantidad de Empleados Tipo Tecnico: " << cantTecnicos << "\n";
+    if (cantTecnicos > 0) {
+        cout << "Acumulado Salario Neto para Tecnicos: " << acumuladoNetoTecnicos << "\n";
+        cout << "Promedio Salario Neto para Tecnicos: " << acumuladoNetoTecnicos / cantTecnicos << "\n";
+    } else {
+        cout << "Acumulado Salario Neto para Tecnicos: N/A\n";
+        cout << "Promedio Salario Neto para Tecnicos: N/A\n";
+    }
+
+    cout << "--------------------------------------------------\n";
+    cout << "Cantidad de Empleados Tipo Profesional: " << cantProfesionales << "\n";
+    if (cantProfesionales > 0) {
+        cout << "Acumulado Salario Neto para Profesionales: " << acumuladoNetoProfesionales << "\n";
+        cout << "Promedio Salario Neto para Profesionales: " << acumuladoNetoProfesionales / cantProfesionales << "\n";
+    } else {
+        cout << "Acumulado Salario Neto para Profesionales: N/A\n";
+        cout << "Promedio Salario Neto para Profesionales: N/A\n";
+    }
+    cout << "--------------------------------------------------\n";
+}
 
 // funcion calcular salario
 void calcularSalarios(int index) {
