@@ -1,0 +1,1 @@
+Agarrar la tarea anterior ya modificada con los arrays y ponerle funciones o metodos, donde se crea necesario
