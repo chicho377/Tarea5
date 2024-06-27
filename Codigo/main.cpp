@@ -50,6 +50,9 @@ int main(int argc, char** argv) {
 			case 2:
 				consultarEmpleado();
 				break;
+			case 3:
+				modificarEmpleado();
+				break;
 			default:
 				cout << "Opcion no valida. Intente de nuevo.\n";
 				break;
@@ -132,6 +135,40 @@ void consultarEmpleado() {
             cout << "Salario Neto: " << salariosNetos[i] << "\n";
             cout << "--------------------------------------------------\n";
             encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Empleado no encontrado.\n";
+    }
+}
+
+// funcion modificar empleado
+void modificarEmpleado() {
+    string cedula;
+    cout << "Ingrese la cedula del empleado a modificar: ";
+    cin >> cedula;
+    bool encontrado = false;
+    for (int i = 0; i < numEmpleados; i++) {
+        if (cedulas[i] == cedula) {
+            encontrado = true;
+
+            cout << "Ingrese el nuevo nombre del empleado: ";
+            cin.ignore(); // consumir el salto de linea pendiente 
+            getline(cin, nombres[i]);
+
+            cout << "Ingrese el nuevo tipo de empleado (1-Operario, 2-Tecnico, 3-Profesional): ";
+            cin >> tipos[i];
+
+            cout << "Ingrese el nuevo salario por hora: ";
+            cin >> salariosPorHora[i];
+
+            cout << "Ingrese la nueva cantidad de horas trabajadas: ";
+            cin >> horasTrabajadas[i];
+
+            calcularSalarios(i);
+
+            cout << "Empleado modificado correctamente.\n";
             break;
         }
     }
