@@ -67,17 +67,65 @@ void agregarEmpleado(){
     cin >> horasTrabajadas[numEmpleados];
 
     calcularSalarios(numEmpleados);
+    
+    consultarEmpleado();
 
     numEmpleados++;
 }
 
+// funcion consultar empleado
+void consultarEmpleado() {
+    string cedula;
+    cout << "Ingrese la cedula del empleado a consultar: ";
+    cin >> cedula;
+    bool encontrado = false;
+    for (int i = 0; i < numEmpleados; i++) {
+        if (cedulas[i] == cedula) {
+            cout << "\nDatos del empleado:\n";
+            cout << "--------------------------------------------------\n";
+            cout << "Cedula: " << cedulas[i] << "\n";
+            cout << "Nombre: " << nombres[i] << "\n";
+            cout << "Tipo Empleado: " << tiposEmpleados[tipos[i]] << "\n";
+            cout << "Salario por Hora: " << salariosPorHora[i] << "\n";
+            cout << "Cantidad de Horas: " << horasTrabajadas[i] << "\n";
+            cout << "--------------------------------------------------\n";
+            cout << "Salario Ordinario: " << salariosOrdinarios[i] << "\n";
+            cout << "Aumento: " << aumentos[i] << "\n";
+            cout << "Salario Bruto: " << salariosBrutos[i] << "\n";
+            cout << "Deduccion CCSS: " << deduccionesCCSS[i] << "\n";
+            cout << "Salario Neto: " << salariosNetos[i] << "\n";
+            cout << "--------------------------------------------------\n";
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Empleado no encontrado.\n";
+    }
+}
+
+
 
 int main(int argc, char** argv) {
+	// ciclo do while para poder manejar las opciones del menu
 	int opcion;
 	do{
 		system("CLS"); // limpiar pantalla
 		mostrarMenu();
 		cin >> opcion;
+		
+		// switch para poder usar el menu
+		switch(opcion){
+			case 1:
+				agregarEmpleado();
+				break;
+			case 2:
+				consultarEmpleado();
+				break;
+			default:
+				cout << "Opcion no valida. Intente de nuevo.\n";
+				break;
+		}
 		
 		system("CLS");
 	}while(opcion != 6);
