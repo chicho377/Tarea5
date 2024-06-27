@@ -150,6 +150,7 @@ void modificarEmpleado() {
     cin >> cedula;
     bool encontrado = false;
     for (int i = 0; i < numEmpleados; i++) {
+    	// verificacion del empleado que se desea modificar sea el correcto
         if (cedulas[i] == cedula) {
             encontrado = true;
 
@@ -176,6 +177,52 @@ void modificarEmpleado() {
         cout << "Empleado no encontrado.\n";
     }
 }
+
+// funcion borrar empleado
+void borrarEmpleado() {
+    string cedula;
+    cout << "Ingrese la cedula del empleado a borrar: ";
+    cin >> cedula;
+    bool encontrado = false;
+    // verificar empleado a eliminar
+    for (int i = 0; i < numEmpleados; i++) {
+        if (cedulas[i] == cedula) {
+            encontrado = true;
+
+            // actualizar acumulados antes de borrar
+            if (tipos[i] == 1) {
+                cantOperarios--;
+                acumuladoNetoOperarios -= salariosNetos[i];
+            } else if (tipos[i] == 2) {
+                cantTecnicos--;
+                acumuladoNetoTecnicos -= salariosNetos[i];
+            } else if (tipos[i] == 3) {
+                cantProfesionales--;
+                acumuladoNetoProfesionales -= salariosNetos[i];
+            }
+
+            // mover el ltimo empleado a la posicixion actual
+            cedulas[i] = cedulas[numEmpleados - 1];
+            nombres[i] = nombres[numEmpleados - 1];
+            tipos[i] = tipos[numEmpleados - 1];
+            salariosPorHora[i] = salariosPorHora[numEmpleados - 1];
+            horasTrabajadas[i] = horasTrabajadas[numEmpleados - 1];
+            salariosOrdinarios[i] = salariosOrdinarios[numEmpleados - 1];
+            aumentos[i] = aumentos[numEmpleados - 1];
+            salariosBrutos[i] = salariosBrutos[numEmpleados - 1];
+            deduccionesCCSS[i] = deduccionesCCSS[numEmpleados - 1];
+            salariosNetos[i] = salariosNetos[numEmpleados - 1];
+
+            numEmpleados--;
+            cout << "Empleado borrado correctamente.\n";
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Empleado no encontrado.\n";
+    }
+}
+
 
 // funcion calcular salario
 void calcularSalarios(int index) {
